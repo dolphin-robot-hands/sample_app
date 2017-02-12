@@ -77,4 +77,12 @@ test "password should have a minimum length" do
   assert_not @user.valid?
 end
 
+test "associated microposts should be destroyed" do
+  @user.save
+  @user.microposts.create!(content: "sf")
+  assert_difference 'Micropost.count', -1 do
+    @user.destroy
+  end
+end
+
 end
